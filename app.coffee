@@ -1,9 +1,9 @@
-express = require 'express'
-routes = require './routes'
-user = require './routes/user'
-bus = require  './routes/bus'
-http = require 'http'
-path = require 'path'
+express = require('express')
+routes = require('./routes')
+user = require('./routes/user')
+bus = require ('./routes/bus')
+http = require('http')
+path = require('path')
 app = express()
 
 app.configure ->

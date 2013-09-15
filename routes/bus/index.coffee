@@ -1,2 +1,2 @@
-exports.routes = require './routes'
-exports.stops = require './stops'
+exports.routes = require('./routes')
+exports.stops = require('./stops')
