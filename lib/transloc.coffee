@@ -15,9 +15,9 @@ transloc.route_list = (callback) ->
         body_json = JSON.parse(body).data[config.AGENCY_ID]
         data = (
           {
-            long_name: route.long_name,
+            name: route.long_name,
             stops: route.stops,
-            route_id: route.route_id,
+            id: route.route_id,
             is_active: route.is_active,
           } for route in body_json when route.is_active)
         callback(null, data)
@@ -35,6 +35,6 @@ transloc.stop_list = (callback) ->
           {
             name: stop.name,
             routes: stop.routes,
-            stop_id: stop.stop_id,
+            id: stop.stop_id,
           } for stop in body_json)
         callback(null, data)

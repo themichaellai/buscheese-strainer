@@ -9,6 +9,7 @@
     "express": "3.0.6",
     "jade": "*",
     "request": "~2.27.0",
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "redis": "~0.8.4"
   }
 }
