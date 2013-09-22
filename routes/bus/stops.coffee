@@ -41,7 +41,6 @@ stops.show = (req, res) ->
         res.send err
       else
         route_id_map = results.route_id_map
-        console.log route_id_map
         stops = results.stops
         stop = _.find(stops, (stop) ->
           stop.id == req.params.stopId

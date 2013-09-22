@@ -19,13 +19,9 @@ transloc.route_id_to_name = (callback) ->
             callback({error: body})
           else
             routes = JSON.parse(body).data[config.AGENCY_ID]
-            console.log 'routes'
-            console.log routes
             mapping = _.object(_.map routes, (route) ->
               return [route.route_id, route.long_name]
             )
-            console.log 'mapping'
-            console.log mapping
             redis.setex('route_mapping', 5*60, JSON.stringify(mapping))
             callback(null, mapping)
 
@@ -84,3 +80,23 @@ transloc.stop_list = (callback) ->
             id: stop.stop_id,
           } for stop in body_json)
         callback(null, data)
+
+transloc.arrival_estimates = (callback) ->
+  redis.get 'arrival_estimates', (err, data) ->
+    if data
+      callback(null, JSON.parse(data))
+    else
+      request "http://api.transloc.com/1.2/arrival-estimates.json?agencies=#{config.AGENCY_ID}", (err, res, body) ->
+        if (err)
+          console.log err
+          callback(err)
+        else
+          if res.statusCode in [400, 500]
+            callback({error: body})
+          else
+            stops = JSON.parse(body).data
+            mapping = _.object(_.map stops, (stop) ->
+              return [stop.stop_id, stop.arrivals]
+            )
+            redis.setex('arrival_estimates', 10, JSON.stringify(mapping))
+            callback(null, mapping)
