@@ -45,5 +45,8 @@ stops.show = (req, res) ->
             arrival_at: route.arrival_at
           }
         )
+        stop.arrivals = _.uniq(stop.arrivals, false, (route) ->
+          route.route_id
+        )
         res.send stop
   )
